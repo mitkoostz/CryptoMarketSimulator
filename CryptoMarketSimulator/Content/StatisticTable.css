@@ -1,0 +1,27 @@
+﻿th {
+    font: bold 24px arial;
+    color: black;
+}
+td {
+    font: bold 20px Courier New;
+    color: black;
+}
+.percent {
+    font: bold 20px arial;
+}
+
+#StatisticePage {
+    background: url(/Resources/StatisticBackground.jpeg) no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+    overflow: auto;
+}
+
+.table-borderless > tbody > tr > td,
+.table-borderless > tbody > tr > th,
+.table-borderless > tfoot > tr > td,
+.table-borderless > tfoot > tr > th,
+.table-borderless > thead > tr > td,
+.table-borderless > thead > tr > th {
+    border: none;
+}

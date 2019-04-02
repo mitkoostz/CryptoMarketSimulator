@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+}
+@model CryptoMarketSimulator.Models.Transport.ProfileViewModel
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/mdb.js"></script>
+
+<link href="~/Content/ProfilePageBackground.css" rel="stylesheet" />
+<link href="~/Content/FixTabPane.css" rel="stylesheet" />
+<link href="~/Content/ProfileUploader.css" rel="stylesheet" />
+
+
+@{ 
+    var BtcUsd = Model.User.Balance * CoinValues.GetValues().Where(v => v.Name == "Bitcoin").First().Price;
+}
+<body id="ProfilePage">
+    <br />
+
+    <ul class="nav nav-tabs" style="font:22px arial bold;">
+        <li class="active"><a data-toggle="tab" href="#home"><b>Profile</b></a></li>
+        <li><a data-toggle="tab" href="#wallet"><b>Wallet</b></a></li>
+        <li><a data-toggle="tab" href="#lasttrades"><b>Trade History</b></a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" name="home" class="tab-pane fade in active">
+
+            <div class="row" style="background-image:url('/Resources/Cryptocurrencies.jpg')">
+
+                <div class="col-md-4">
+
+                    <img src="@Model.User.ProfilePicture" style="width:180px;height:180px;  position:relative;" class="img-circle" alt="Cinque Terre">
+
+                </div>
+            </div>
+            <div class="row">
+
+                <b> <span class="glyphicon glyphicon-user"></span>@Model.User.Email</b>
+
+            </div>
+            <div class="row">
+
+                <span class="glyphicon glyphicon-shopping-cart"></span><b>Balance: @string.Format("{0:0.##}", @Model.TotalBalanceUSD)$ (BTC: @string.Format("{0:0.##}", BtcUsd)$)</b>
+            </div>
+
+            <div class="row">
+                @using (Html.BeginForm("UploadPic", "Profile", FormMethod.Post,
+                                  new { enctype = "multipart/form-data" }))
+                {
+                    <form id="form1" runat="server" enctype="multipart/form-data">
+                        <label class="custom-file-upload">
+                            <input type="file" id="myFile" accept="image/*" name="myFile" />
+                            <span class="glyphicon glyphicon-picture"></span>
+                            Change Image
+                            <button id="uploadbtn" hidden></button>
+                        </label>
+                    </form>
+                }
+
+
+            </div>
+
+            <div class="row ">
+                <div class="col-md-6">
+                    <canvas id="transactions" style="max-width:500px;" position:relative;"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <canvas id="usdcost" style="max-width:500px;" position:relative;"></canvas>
+                </div>
+
+            </div>
+
+        </div>
+        <div id="wallet" name="wallet" style="height:40%;" class="tab-pane fade">
+
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col"><h4><B>Currency</B></h4></th>
+                        <th scope="col"><h4><b>Balance</b></h4></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td><b>Bitcoin</b></td>
+                        <td><b> @string.Format("{0:F8}", Model.User.Balance) </b></td>
+                    </tr>
+
+                    @{ Dictionary<int, string> Coins = CoinValues.GetCurrencyName();}
+                    @for (int i = 2; i < 50; i++)
+                    {
+                        var CurrencyName = Coins[i];
+                        <tr>
+                            <th scope="row">@i</th>
+                            <td><b>@CurrencyName</b></td>
+                            <td><b> @string.Format("{0:F8}", Model.User.Wallet[CurrencyName.Replace(" ", string.Empty)]) </b></td>
+                        </tr>
+                    }
+
+
+
+
+
+                </tbody>
+            </table>
+
+
+
+        </div>
+        <div id="lasttrades" name="lasttrades" style="height: 5%;overflow-y: scroll;" class="tab-pane fade">
+
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" style="width:30%;"><h4><B>Transaction</B></h4></th>
+                        <th scope="col" style="width:10%;"><h4><B>Price</B></h4></th>
+                        <th scope="col"><h4><B>Total</B></h4></th>
+                        <th scope="col"><h4><b>Date</b></h4></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @{ var counter = 1; }
+                    @foreach (var tran in Model.User.Transactions)
+                    {
+                        <tr>
+                            <th scope="row">@counter</th>
+                            <td>@tran.Type <b>@String.Format("{0:F5}", tran.Amount) @tran.Currency</b></td>
+                            <td><b>@String.Format("{0:F3}", tran.CurrencyPrice) $</b></td>
+                            <td><b>@String.Format("{0:F3}", tran.TotalUSD) USD</b></td>
+                            <td><b>@tran.Date</b></td>
+                        </tr>
+
+                        counter++;
+                    }
+
+                </tbody>
+            </table>
+
+
+
+        </div>
+    </div>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</body>
+
+<script src="~/Scripts/uploadProfileImage.js"></script>
+<script src="~/Scripts/ProfileDiagram.js"></script>

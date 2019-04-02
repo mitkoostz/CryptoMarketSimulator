@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+@model CryptoMarketSimulator.Models.Transport.HomeAuthenticated
+<link href="~/Content/HomePageBackground.css" rel="stylesheet" />
+
+
+<body id="HomePage">
+
+
+    @if (!Request.IsAuthenticated)
+    {
+    <div class="row text-center" id="HomePageBody">
+        <br />
+
+        <h1 style="font-family:'Courier New'; color:white;"><b>Trade 50+ demo cryptocurrencies</b></h1>
+
+        <p style="font:20px italic; color:white; font-family:'Courier New'; ">- <b>100%</b> real time currency price </p>
+        <p style="font:20px italic;  color:white; font-family:'Courier New';">- <b>Top 50+</b> cryptocurrencies avaible</p>
+        <p style="font:20px italic;  color:white; font-family:'Courier New';">- Start with <b>5000$</b> in your wallet</p>
+        <a href="/Account/Register" id="getstartedbtn" class="btn btn-success">Get Started</a>
+
+        <div id="btcdiv">
+            <img src="~/Resources/bitcoin.png" id="bitcoin" class="img-circle" alt="Cinque Terre">
+            @{
+                var color = "white";
+                var PlusOrMinus = "+";
+                if (decimal.Parse(Model.Bitcoin.Change24.Replace("%", string.Empty)) < 0)
+                {
+                    color = "red";
+                    PlusOrMinus = "-";
+                }
+                else
+                {
+                    color = "green";
+                    PlusOrMinus = "+";
+                }
+            }
+            = @Model.Bitcoin.Price$ <b style="font: bold 40px arial; color:@color; font-family:'Courier New'">@PlusOrMinus@Model.Bitcoin.Change24</b><b style="font: 20px arial; color:white; font-family:'Courier New'">(24h)</b>
+        </div>
+
+    </div>
+                }
+                else
+                {
+
+                    <div class="row text-center" id="HomePageBody">
+        <br />
+
+        <h1 style="font-family:'Courier New'; color:white;"><b>You have @Model.UserData.Balance (BTC) </b></h1>
+
+        <p style="font:20px italic; color:white; font-family:'Courier New'; ">- <b>@string.Format("{0:0.##}", @Model.TotalBalance)$</b> Total Balance</p>
+        <p style="font:20px italic;  color:white; font-family:'Courier New';">- <b>@Model.UserData.Transactions.Count</b> Total Transactions</p>
+        @*<p style="font:20px italic;  color:white; font-family:'Courier New';">- Start with <b>5000$</b> in your wallet</p>*@
+        <a href="/Trade"  id="getstartedbtn" class="btn btn-success">Go Trade</a>
+
+        <div id="btcdiv">
+            <img src="~/Resources/bitcoin.png" id="bitcoin" class="img-circle" alt="Cinque Terre">
+            @{
+                var color = "white";
+                var PlusOrMinus = "+";
+                if (decimal.Parse(Model.Bitcoin.Change24.Replace("%", string.Empty)) < 0)
+                {
+                    color = "red";
+                    PlusOrMinus = "-";
+                }
+                else
+                {
+                    color = "green";
+                    PlusOrMinus = "+";
+                }
+            }
+            = @Model.Bitcoin.Price$ <b style="font: bold 40px arial; color:@color; font-family:'Courier New'">@PlusOrMinus@Model.Bitcoin.Change24</b><b style="font: 20px arial; color:white; font-family:'Courier New'">(24h)</b>
+        </div>
+
+    </div>
+                }
+
+</body>
+

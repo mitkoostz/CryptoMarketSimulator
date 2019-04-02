@@ -1,0 +1,243 @@
+﻿
+@{
+    ViewBag.Title = "TradePage";
+}
+@model CryptoMarketSimulator.Models.TradePage
+
+<head>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <link href="~/Content/TradeBbackground.css" rel="stylesheet" />
+    <link href="~/Content/SlideMenu.css" rel="stylesheet" />
+    <link href="~/Content/LoadCircle.css" rel="stylesheet" />
+
+</head>
+
+
+<body id="TradeB">
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <h1 id="currencyname">@Model.Name</h1>
+        </div>
+
+
+
+    </div>
+  
+
+
+    @{  var path = "/Resources/CoinImages/" + Model.ImageNumber + ".png";
+        var currentprice = CoinValues.GetValues().Where(c => c.Name == Model.Name).First().Price;
+        var bitcoinPrice = CoinValues.GetBtcValue().Price;
+
+    }
+
+    <label hidden id="currencyPrice">@currentprice</label>
+    <label hidden id="bitcoinPrice">@bitcoinPrice</label>
+    <label hidden id="userbalance">@Model.UserBalanceBTC</label>
+    <label hidden id="currencybalance">@Model.CurrencyBalance</label>
+
+
+
+
+    @ViewBag.Result
+
+
+    <div class="row">
+
+
+        <div class="col-md-2">
+            <img src="@path" style="width:60px;" class="img-rounded" alt="Cinque Terre">
+            <h2 id="CurrencyPrice">@currentprice$</h2>
+        </div>
+
+        <div class="col-md-4">
+            
+            <p><b id="userb">@Model.UserBalanceBTC</b> BTC (<b id="userusd">@string.Format("{0:F2}", Model.UserBalanceUSD)$</b>)</p>
+            <p><b id="CurrencyBalance">@Model.CurrencyBalance</b> @Model.Name</p>
+           
+            
+            <div class="well well-lg" style="width:78%; position:initial; height:220px;">
+                <p style="font: 25px Courier New" id="pricebtc">0.00000000 BTC</p>
+                <p style="font: 25px Courier New" id="priceusd">0.00 USD</p>
+                <label class="text-danger"><strong id="buyAlert"></strong></label>
+                <label class="text-success"><strong id="buysuccess"></strong></label>
+                <div class="loader"  hidden id="buyloader"></div>
+
+            </div>
+
+
+            @*@using (Html.BeginForm("Buy", "Trade", new { name = Model.Name },FormMethod.Post,
+                                                  new {enctype = "multipart/form-data", onsubmit= "return ValidateBuy();" }))
+            {
+        <fieldset>*@
+            <div class="form-group">
+                <input id="buyfield"  placeholder="0.05" maxlength="20" name="amount" type="number" step="0.0000001" class="form-control">
+            </div>
+            <button  class="btn btn-success" id="buybutton" style="width:78%;">Buy</button>
+        @*</fieldset>
+    }*@
+       
+
+
+        </div>
+
+       
+
+        <div class="col-md-4">
+            <br />
+            <br />
+            <br />
+
+            <div class="well well-lg" style="width:78%;height:220px;">
+                <p style="font: 25px Courier New" id="pricebtc2">0.00000000 BTC</p>
+                <p style="font: 25px Courier New" id="priceusd2">0.00 USD</p>
+                <label class="text-danger"><strong id="sellAlert"></strong></label>
+                <label class="text-danger"><strong id="sellsuccess"></strong></label>
+                <div class="loader" hidden id="sellloader"></div>
+
+            </div>
+
+            @*@using (Html.BeginForm("Sell", "Trade", new { name = Model.Name }, FormMethod.Post,
+                                                      new { enctype = "multipart/form-data", onsubmit = "return ValidateSell();" }))
+            {
+        <fieldset>*@
+
+            <div class="form-group">
+                <input id="sellfield" placeholder="0.05" maxlength="20" step="0.0000001" name="amount" type="number" class="form-control">
+            </div>
+            <button type="submit" id="sellbutton" class="btn btn-danger" style="width:78%;">Sell</button>
+
+        @*</fieldset>
+        }*@
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="display:inline">
+            <br />
+            <br />
+            <br />
+            <br />
+            @foreach (var coin in Model.AllCoins)
+            {
+                var imgpath = "/Resources/CoinImages/" + coin.Key + ".png";
+
+
+                <a class="item" href="/Trade?currency=@coin.Value" style="display:inline-block;">
+
+                    <img src="@imgpath" style="width:30px;" class="img-rounded" alt="Cinque Terre">
+
+                </a>
+
+
+            }
+        </div>
+    </div>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+        <h2 style="padding-left:30px;color:darkgray">My Wallet</h2>
+    
+            <ul  style="list-style-type: none;" id="walletlist">
+                <li style="color:lightslategrey;"><b>@Model.UserBalanceBTC BTC</b></li>
+
+                @foreach (var coin in Model.AllCoins)
+            {
+
+                    <li class="" style="color:lightslategrey;width:75%;">@string.Format("{0:F4}", Model.User.Wallet[coin.Value.Replace(" ", string.Empty)]) @coin.Value</li>
+                }
+            </ul>
+     
+       
+
+    </div>
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title"><b>SUCCESS!</b></h3>
+                </div>
+                <div class="modal-body">
+                    <p id="modalinfo">Successfully bought 10 </p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <span class="glyphicon glyphicon-chevron-left" onclick="openNav();" id="menubtn"></span>
+
+    <script>
+
+ 
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "260px";
+
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+
+        }
+
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        if (!isMobile()) {
+
+            //$(document).ready(function () {
+            //    setTimeout(function () {
+            //        openNav();
+            //    }, 1500);
+            //    setTimeout(function () {
+            //        closeNav();
+            //    }, 2200);
+             
+            //});
+
+
+            $("#menubtn").hover(function myfunction() {
+
+                $("#menubtn").css("left", "89%");
+                openNav();
+
+
+            }, function () {
+
+                $("#menubtn").css("left", "90%");
+
+                });
+
+            $("#mySidenav").hover(function myfunction() {
+
+                openNav();
+
+
+            }, function () {
+
+                closeNav();
+            });
+
+        }
+
+      
+
+    </script>
+
+</body>
+
+
+
+
+<script src="~/Scripts/Trade.js"></script>
+<script src="~/Scripts/NaNFIX.js"></script>
+<script src="~/Scripts/BuySellHTTPOST.js?v=1"></script>

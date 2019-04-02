@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+@model CryptoMarketSimulator.Models.RegisterViewModel
+<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+<link href="~/Content/Register.css" rel="stylesheet" />
+
+<body id="mainBody">
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="wrap">
+                    <p class="form-title">
+                        create account
+                    </p>
+                    @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+
+
+                        <input type="text" id="emailfield" name="Email" placeholder="Email" />
+                        <b>@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger", @id = "emailerror", @style = "background-color:rgba(0, 0, 0, 0.4);" })</b>
+
+                        <input type="text" id="usernamefield" name="UserName" placeholder="Username" />
+                        <b>@Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger", @id = "emailerror", @style = "background-color:rgba(0, 0, 0, 0.4);" })</b>
+
+
+                        <input type="password" id="passwordfield" name="Password" placeholder="Password" />
+                        <b>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger", @id = "passworderror", @style = "background-color:rgba(0, 0, 0, 0.4);" })</b>
+
+                        <input type="password" id="passwordconfirmfield" name="ConfirmPassword" placeholder="Confirm Password" />
+                        <b>@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger", @id = "passworderror", @style = "background-color:rgba(0, 0, 0, 0.4);" })</b>
+
+
+
+
+
+                        <input type="submit" value="Register" class="btn btn-success btn-sm" />
+                        <a href="/Account/Login" id="loginbtn" style="color:rgba(255, 255, 255,0.4);">LOG IN</a>
+                        <br />
+
+
+                    }
+
+                    <script>
+
+                        //$("#loginbtn").click(function () {
+
+                        //    $('#mainBody').fadeOut('slow', function () {
+                        //        $('#mainBody').load("/Account/Login", function () {
+                        //            $('#mainBody').fadeIn('slow');
+                        //        });
+                        //    });
+                        //});
+
+
+                        $('#emailfield,#passwordfield').on('input', function (e) {
+
+                            $('#emailerror,#passworderror').text("");
+                        });
+                    </script>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+

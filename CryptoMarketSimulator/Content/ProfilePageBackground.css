@@ -1,0 +1,7 @@
+﻿#ProfilePage {
+    background: url(/Resources/profilebackground.jpg) no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+    overflow: auto;
+}
+

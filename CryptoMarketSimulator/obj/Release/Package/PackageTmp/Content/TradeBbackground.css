@@ -1,0 +1,13 @@
+﻿#TradeB {
+    background: url(/Resources/TradeB.jpeg) no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+}
+
+
+p {
+    width: 230px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Analytics";
+}
+@model ICollection<Coin>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/Content/StatisticTable.css" rel="stylesheet" />
+
+<body id="StatisticePage">
+
+
+    <br />
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th>Currency</th>
+                <th>Price</th>
+                <th>Change(24h)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var coin in Model)
+            {
+            <tr>
+                <td>@coin.Name</td>
+                <td>@coin.Price$</td>
+                @if (coin.Change24.Contains("-"))
+                {
+                    <td class="percent" style="color:red">@coin.Change24</td>
+                }
+                else
+                {
+                    <td class="percent" style="color:green">@coin.Change24</td>
+
+                }
+
+            </tr>
+                
+            }
+                
+        </tbody>
+    </table>
+
+
+
+</body>
+

@@ -1,0 +1,19 @@
+﻿@media (max-width: 800px) {
+
+    .img-rounded {
+        width: 180px;
+    }
+    
+}
+
+@media (min-width: 800px) {
+
+    .img-rounded{
+        width:120px;
+    }
+
+   #TradeB{
+       overflow-y:hidden
+   }
+    
+}

@@ -1,0 +1,48 @@
+﻿#HomePage {
+    background: url(/Resources/back3.jpeg) no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
+}
+
+#bitcoin {
+    width: 10%;
+    margin-bottom:40px;
+}
+
+#getstartedbtn {
+    border-radius: 40px;
+    font: bold 20px arial;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgba(0,0,160,0.6);
+}
+#HomePageBody {
+    background-color: rgba(0,0,0,0.8);
+    top: 50px;
+    position: relative;
+    border-radius: 70px;
+}
+
+@media (max-width: 800px) {
+
+    #btcdiv {
+        font: bold 40px arial;
+        color: orange;
+        top: 50px;
+        left: 40px;
+    }
+}
+@media (min-width: 800px) {
+
+    #btcdiv {   
+        font:bold 50px arial;
+
+        color:orange;
+        top:70px;
+        left:160px;
+    }
+}
+
+
+
+
