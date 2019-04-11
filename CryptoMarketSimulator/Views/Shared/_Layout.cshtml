@@ -5,69 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-            @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/Layout2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
-
-    @*GOOGLE ADSENSE*@
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
-     (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-8723045763935491",
-          enable_page_level_ads: true
-     });
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-1570853954350859",
+            enable_page_level_ads: true
+        });
     </script>
 
-    @*GOOGLE ANALYSTIC*@
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116828644-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-116828644-1');
-    </script>
 </head>
-<body >
 
-            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                <div class="container">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="/Home">CryptoMarketSimulator</a>
+<body>
+    <script type="text/javascript">
+        window.onload = function () {
+        }
 
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse navbar-ex1-collapse">
-                        <ul class="nav navbar-nav js-nav-add-active-class">
-                            <li><a href="/Home">HOME</a></li>
-                            <li><a href="/Trade/Index">TRADE</a></li>
+    </script>
 
-                            <li><a href="/Home/Analytics">TOP 50</a></li>
-                  
-                        </ul>
-                      
-                        @Html.Partial("_LoginPartial")
-                    </div><!-- /.navbar-collapse -->
-                </div>
-            </nav>
 
-   
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Home">CryptoTradeSimulator</a>
+
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav js-nav-add-active-class">
+                    <li><a href="/Home">HOME</a></li>
+                    <li><a href="/Trade/Index">TRADE</a></li>
+
+                    <li><a href="/Home/Analytics">TOP 50</a></li>
+
+                </ul>
+
+                @Html.Partial("_LoginPartial")
+            </div><!-- /.navbar-collapse -->
+        </div>
+
+    </nav>
+
+
     <div class="container body-content">
         @RenderBody()
-        <footer>
-            <p></p>
-        </footer>
     </div>
+
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+
 </body>
+
 </html>

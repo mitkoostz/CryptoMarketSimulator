@@ -55,7 +55,7 @@ namespace CryptoMarketSimulator.Models
         public decimal ICON { get; set; }
         public decimal BitShares { get; set; }
         public decimal Holo { get; set; }
-        public decimal KuCoinShares { get; set; }
+        public decimal Verge { get; set; }
         public decimal DigiByte { get; set; }
         public decimal Nano { get; set; }
         public decimal Steem { get; set; }

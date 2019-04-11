@@ -11,3 +11,49 @@ p {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+#BalanceLabel{
+    font-size:20px;
+    font-family:'Times New Roman', Times, serif;
+}
+
+
+
+/*.nav-tabs {
+    background-color: #161616;
+}*/
+
+/*.tab-content {
+    background-color: green;;
+    color: green;
+    padding: 5px
+}*/
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.nav-tabs> li {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size:24px;
+}
+    .nav-tabs > li > a:hover {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+        border: medium none;
+        border-radius: 0;
+        color: rgba(255, 0, 0, 0.2);     
+    }
+
+#BuyTab {
+    color: green;
+}
+#SellTab{
+    color:red;
+}
+
+.glyphicon.glyphicon-remove:hover{
+
+     color:red;
+}

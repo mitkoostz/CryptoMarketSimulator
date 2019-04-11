@@ -1,5 +1,6 @@
 ﻿using CryptoMarketSimulator.Models;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -44,6 +45,7 @@ namespace CryptoMarketSimulator.Controllers
 
                 tradeData.Name = CurrencyName;
                 tradeData.Price = CoinValues.GetValues().Where(c => c.Name == CurrencyName).First().Price;
+                tradeData.PriceBTC =  tradeData.Price / CoinValues.GetBtcValue().Price ;
                 tradeData.ImageNumber = CoinValues.GetCurrencyName().Where(c => c.Value == currency).First().Key;
                 tradeData.AllCoins = CoinValues.GetCurrencyName();
             
@@ -56,6 +58,7 @@ namespace CryptoMarketSimulator.Controllers
                 tradeData.UserBalanceBTC = user.Balance;
                 tradeData.UserBalanceUSD = user.Balance*CoinValues.GetBtcValue().Price;
                 user.Wallet = user.Wallet;
+                user.LimitOrders = user.LimitOrders.OrderByDescending(order => order.OrderDate).ToList();
                 tradeData.User = user;
                 tradeData.CurrencyBalance = user.Wallet[currency.Replace(" ",string.Empty)];
             }
@@ -133,6 +136,105 @@ namespace CryptoMarketSimulator.Controllers
 
         [Authorize]
         [HttpPost]
+        public ActionResult BuyLimitOrder(string currencyname, string buyamount , string buyatprice)
+        {
+            var userId = User.Identity.GetUserId();
+            var db = new SiteDbContext();
+            var user = db.Users.Find(userId);
+
+            decimal BuyAmount = decimal.Parse(buyamount);
+            decimal BuyAtPrice = decimal.Parse(buyatprice);
+
+            var TotalOrderBtcCost = BuyAmount * BuyAtPrice;
+
+            var Coins = CoinValues.GetValues().ToList();
+            if (Coins.Where(c => c.Name.Contains(currencyname)).Count() == 0)
+            {
+                return View("TradePage");
+
+            }
+            if (TotalOrderBtcCost > user.Balance)
+            {
+                return View("TradePage");
+            }
+
+            LimitOrder order = new LimitOrder()
+            {
+                User = user,
+                Amount = BuyAmount,
+                Currency = currencyname,
+                AtPrice = BuyAtPrice,
+                OrderType = "Buy",
+                OrderDate = DateTime.Now
+                
+            };
+
+            db.LimitOrders.Add(order);
+            user.Balance -= TotalOrderBtcCost;
+
+            db.SaveChanges();
+
+            var Data = Newtonsoft.Json.JsonConvert.SerializeObject(new
+            {
+                UserBtc = user.Balance,
+                UserUsd = user.Balance * CoinValues.GetBtcValue().Price
+                 
+            });
+
+            return Json(Data, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult SellLimitOrder(string currencyname, string sellamount, string sellatprice)
+        {
+            var userId = User.Identity.GetUserId();
+            var db = new SiteDbContext();
+            var user = db.Users.Find(userId);
+
+            decimal SellAmount = decimal.Parse(sellamount);
+            decimal BuyAtPrice = decimal.Parse(sellatprice);
+
+            var TotalOrderBtcCost = SellAmount * BuyAtPrice;
+            
+
+            var Coins = CoinValues.GetValues().ToList();
+            if (Coins.Where(c => c.Name.Contains(currencyname)).Count() == 0)
+            {
+                return View("TradePage");
+
+            }
+            if (user.Wallet[currencyname.Replace(" ",string.Empty)] < SellAmount)
+            {
+                return View("TradePage");
+            }
+
+            LimitOrder order = new LimitOrder()
+            {
+                User = user,
+                Amount = SellAmount,
+                Currency = currencyname,
+                OrderType = "Sell",
+                AtPrice = BuyAtPrice,
+                OrderDate = DateTime.Now
+
+            };
+
+            db.LimitOrders.Add(order);
+            user.Wallet[currencyname.Replace(" ", string.Empty)] -= SellAmount;
+
+            db.SaveChanges();
+
+            var Data = Newtonsoft.Json.JsonConvert.SerializeObject(new
+            {
+                UserCurrency = user.Wallet[currencyname.Replace(" ", string.Empty)]
+        });
+
+            return Json(Data, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        [HttpPost]
         public ActionResult Sell(string amount, string name)
         {
             decimal d;
@@ -194,6 +296,45 @@ namespace CryptoMarketSimulator.Controllers
 
         }
 
+        [Authorize]
+        [HttpPost]
+        public ActionResult DeleteOrder(string order)
+        {
+            var db = new SiteDbContext();
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.Find(userId);
+
+
+            var OrderToDelete = user.LimitOrders.Where(ord => ord.Order == order).First();
+            if(OrderToDelete == null)
+            {
+                return View("Index","Home");
+            }
+
+            if(OrderToDelete.OrderType == "Buy")
+            {
+                var TotalOrderBtcCost = OrderToDelete.Amount * OrderToDelete.AtPrice;
+
+                user.Balance += TotalOrderBtcCost;
+            }
+            if(OrderToDelete.OrderType == "Sell")
+            {
+                user.Wallet[OrderToDelete.Currency.Replace(" ", string.Empty)] += OrderToDelete.Amount;
+            }
+
+
+            db.LimitOrders.Remove(OrderToDelete);
+            db.SaveChanges();
+
+            var Data = Newtonsoft.Json.JsonConvert.SerializeObject(new
+            {
+                
+
+            });
+    
+
+            return Json(Data, JsonRequestBehavior.AllowGet);
+        }
 
         [Authorize]
         [HttpPost]
@@ -221,7 +362,111 @@ namespace CryptoMarketSimulator.Controllers
             return Json(Data, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize]
+        [HttpPost]
+        public ActionResult LimitOrderValidate(string currencyname)
+        {
+            var db = new SiteDbContext();
+            var user = db.Users.Find(User.Identity.GetUserId());
+
+            var UserBtcBalance = user.Balance;
+            var UserCurrencyBalance = user.Wallet[currencyname.Replace(" ", string.Empty)];
+
+            var Data = Newtonsoft.Json.JsonConvert.SerializeObject(new
+            {
+                UserBtcBalance = UserBtcBalance,
+                UserCurrencyBalance = UserCurrencyBalance,
+             
+
+            });
+            return Json(Data, JsonRequestBehavior.AllowGet);
         }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult RefreshCurrency(string currencyname)
+        {
+            var coins = CoinValues.GetValues().ToList();
+                Coin coin = coins
+                .Where(v => v.Name.Contains(currencyname))
+                .First();
+
+                Coin Bitcoin = coins
+                .Where(v => v.Name == "Bitcoin".Replace(" ", string.Empty))
+                .First();
+
+            decimal CurrencyUsdPrice = coin.Price;
+            decimal BitcoinPrice = Bitcoin.Price;
+
+            var db = new SiteDbContext();
+            var user = db.Users.Find(User.Identity.GetUserId());
+
+            var UserUsdBalance = user.Balance * BitcoinPrice;
+            var UserCurrencyBalance = user.Wallet[currencyname.Replace(" ", string.Empty)];
+
+            var Data = Newtonsoft.Json.JsonConvert.SerializeObject(new
+            {
+                CurrencyUsdPrice = CurrencyUsdPrice,
+                BitcoinPrice = BitcoinPrice,
+                UserBtcBalance = user.Balance,
+                UserUsdBalance = UserUsdBalance,
+                UserCurrencyBalance = UserCurrencyBalance,
+                UserOrders = user.LimitOrders.ToList()
+
+            }, new JsonSerializerSettings
+            {
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+
+            });
+            return Json(Data, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult GetUserOrders()
+        {
+       
+
+            var db = new SiteDbContext();
+            var user = db.Users.Find(User.Identity.GetUserId());
+
+            var UserOrders = user.LimitOrders.ToList();
+            foreach (var us in UserOrders)
+            {
+                us.User = null;
+            }
+
+            var Data = Newtonsoft.Json.JsonConvert.SerializeObject(new
+            {              
+                UserOrders = UserOrders
+
+            }, new JsonSerializerSettings
+            {
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+
+            });
+            return Json(Data, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult GetCurrencyCharts(string currencyname)
+        {
+
+
+            var db = new SiteDbContext();
+            var CurrencyData = db.CurrenciesCharts.Where(c => c.CurrencyName == currencyname)
+                .ToList();
+
+
+            var Data = Newtonsoft.Json.JsonConvert.SerializeObject(CurrencyData, new JsonSerializerSettings
+            {
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+
+            });
+            return Json(Data, JsonRequestBehavior.AllowGet);
+        }
+    }
 
 
 }

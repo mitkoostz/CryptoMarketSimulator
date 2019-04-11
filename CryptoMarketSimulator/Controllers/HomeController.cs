@@ -15,6 +15,8 @@ namespace CryptoMarketSimulator.Controllers
     {
         public ActionResult Index()
         {
+        
+
             if (!Request.IsAuthenticated)
             {
                 HomeAuthenticated model = new HomeAuthenticated();
@@ -53,17 +55,17 @@ namespace CryptoMarketSimulator.Controllers
         }
 
 
-        [WebMethod]
-        public JsonResult CurrentPrices()
-        {
+        //[WebMethod]
+        //public JsonResult CurrentPrices()
+        //{
 
-            using (var db = new SiteDbContext())
-            {
-                var result = db.CryptoStatistics.Where(s => s.Currency == "TRON").Take(4).OrderByDescending(s => s.Date).ToList();
-                return Json(result, JsonRequestBehavior.AllowGet);
+        //    using (var db = new SiteDbContext())
+        //    {
+        //        var result = db.CryptoStatistics.Where(s => s.Currency == "TRON").Take(4).OrderByDescending(s => s.Date).ToList();
+        //        return Json(result, JsonRequestBehavior.AllowGet);
 
-            }
-        }
+        //    }
+        //}
 
     }
 }

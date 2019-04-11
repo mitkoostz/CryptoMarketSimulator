@@ -25,6 +25,8 @@ namespace CryptoMarketSimulator.Models
         public decimal Balance { get; set; }
         public virtual Wallet Wallet { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; }
+        public virtual ICollection<LimitOrder> LimitOrders { get; set; }
+
         public string ProfilePicture { get; set; }
 
 

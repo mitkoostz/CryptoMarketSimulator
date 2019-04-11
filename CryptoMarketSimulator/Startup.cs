@@ -1,4 +1,5 @@
-﻿using CryptoMarketSimulator.Models;
+﻿using BombaySapphireCds.App_Start;
+using CryptoMarketSimulator.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
@@ -17,6 +18,12 @@ namespace CryptoMarketSimulator
                 new MigrateDatabaseToLatestVersion<SiteDbContext,
                 CryptoMarketSimulator.Migrations.Configuration>());
 
+           
+
+            //Uncomment when publishing
+
+             OrderWorkerConfig.Start();
+             ChartsWorkerConfig.Start();
 
             ConfigureAuth(app);
         }

@@ -108,8 +108,8 @@ namespace CryptoMarketSimulator.Controllers
             TotalBalanceUSD += BitShares * User.Wallet.BitShares;
             var Holo = Coins.Where(c => c.Name.Contains(CurrencyNames[43])).First().Price;
             TotalBalanceUSD += Holo * User.Wallet.Holo;
-            var KuCoinShares = Coins.Where(c => c.Name.Contains(CurrencyNames[44])).First().Price;
-            TotalBalanceUSD += KuCoinShares * User.Wallet.KuCoinShares;
+            var Verge = Coins.Where(c => c.Name.Contains(CurrencyNames[44])).First().Price;
+            TotalBalanceUSD += Verge * User.Wallet.Verge;
             var DigiByte = Coins.Where(c => c.Name.Contains(CurrencyNames[45])).First().Price;
             TotalBalanceUSD += DigiByte * User.Wallet.DigiByte;
             var Nano = Coins.Where(c => c.Name.Contains(CurrencyNames[46])).First().Price;

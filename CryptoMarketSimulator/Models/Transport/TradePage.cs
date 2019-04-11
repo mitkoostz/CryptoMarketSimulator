@@ -9,11 +9,12 @@ namespace CryptoMarketSimulator.Models
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
+        public decimal PriceBTC { get; set; }
         public decimal UserBalanceBTC { get; set; }
         public decimal UserBalanceUSD{ get; set; }
         public Dictionary<int,string> AllCoins { get; set; }
         public ApplicationUser User { get; set; }
-
+        public virtual List<LimitOrder> UserOrders { get; set; }
         public decimal CurrencyBalance { get; set; }
         public int ImageNumber { get; set; }
     }

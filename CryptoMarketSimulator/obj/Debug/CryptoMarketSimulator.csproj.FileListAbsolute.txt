@@ -239,8 +239,9 @@ C:\MitkoSoft\My Projects C#\CryptoMarketSimulator\CryptoMarketSimulator\bin\Micr
 C:\MitkoSoft\My Projects C#\CryptoMarketSimulator\CryptoMarketSimulator\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\MitkoSoft\My Projects C#\CryptoMarketSimulator\CryptoMarketSimulator\bin\Microsoft.AI.WindowsServer.xml
 C:\MitkoSoft\My Projects C#\CryptoMarketSimulator\CryptoMarketSimulator\bin\Microsoft.AI.Web.xml
-C:\MitkoSoft\My Projects C#\CryptoMarketSimulator\CryptoMarketSimulator\obj\Debug\CryptoMarketSimulator.csprojAssemblyReference.cache
 C:\MitkoSoft\My Projects C#\CryptoMarketSimulator\CryptoMarketSimulator\obj\Debug\CryptoMarketSimulator.csproj.CoreCompileInputs.cache
 C:\MitkoSoft\My Projects C#\CryptoMarketSimulator\CryptoMarketSimulator\obj\Debug\CryptoMarketSimulator.csproj.CopyComplete
 C:\MitkoSoft\My Projects C#\CryptoMarketSimulator\CryptoMarketSimulator\obj\Debug\CryptoMarketSimulator.dll
 C:\MitkoSoft\My Projects C#\CryptoMarketSimulator\CryptoMarketSimulator\obj\Debug\CryptoMarketSimulator.pdb
+C:\MitkoSoft\My Projects C#\CryptoMarketSimulator\CryptoMarketSimulator\bin\WebBackgrounder.dll
+C:\MitkoSoft\My Projects C#\CryptoMarketSimulator\CryptoMarketSimulator\obj\Debug\CryptoMarketSimulator.csprojAssemblyReference.cache

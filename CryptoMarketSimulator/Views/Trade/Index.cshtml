@@ -2,43 +2,44 @@
 @{
     ViewBag.Title = "Trade";
 }
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <link href="~/Content/Trade.css" rel="stylesheet" />
 <link href="~/Content/TradePageBackground.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
 
 
 <body id="TradePage">
 
 
     <br />
-    @{   var CoinDictionary = CoinValues.GetCurrencyName(); }
+    @{ var CoinDictionary = CoinValues.GetCurrencyName(); }
     <ul>
         @for (int i = 2; i <= 50; i++)
         {
 
 
-        <div class="col-md-2" style="text-align:center;">
-            @{
-                var path = i + ".png";
-            }
+            <div class="col-md-2 col-sm-12" style="text-align:center;">
+                @{
+                    var path = i + ".png";
+                }
 
-            <div>
+                <div>
 
-                <a style="display:block" class="item" href="/Trade?currency=@CoinDictionary[i]">
+                    <a style="display:block" class="item" href="/Trade?currency=@CoinDictionary[i]">
 
-                    <img src="~/Resources/CoinImages/@path" style="width:55px;" class="img-rounded" alt="Cinque Terre">
-                    <a href="/Trade?currency=@CoinDictionary[i]" style="font:bold 12px arial; color:black;">@CoinDictionary[i]</a>
-                    <br />
-                    <br />
-                    <br />
+                        <img src="~/Resources/CoinImages/@path" style="width:55px;" class="img-rounded" alt="Cinque Terre">
+                        <a href="/Trade?currency=@CoinDictionary[i]" style="font:bold 12px arial; color:black;">@CoinDictionary[i]</a>
+                        <br />
+                        <br />
+                        <br />
 
-                </a>
+                    </a>
+
+                </div>
 
             </div>
 
-        </div>
-
-                    }
+        }
 
     </ul>
 

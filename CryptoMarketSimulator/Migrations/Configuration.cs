@@ -11,7 +11,6 @@ namespace CryptoMarketSimulator.Migrations
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
-            ContextKey = "CryptoMarketSimulator.Models.SiteDbContext";
         }
 
         protected override void Seed(CryptoMarketSimulator.Models.SiteDbContext context)

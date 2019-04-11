@@ -1,6 +1,7 @@
-﻿body {
-    background: url('/Resources/LoginBackground.jpg') fixed;
+﻿#mainBody {
+    background: url('/Resources/LoginBackground.jpg') center center fixed;
     background-size: cover;
+    min-height:100%;
     padding: 0;
     margin: 0;
 }

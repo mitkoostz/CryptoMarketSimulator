@@ -1,9 +1,13 @@
 ﻿#HomePage {
-    background: url(/Resources/back3.jpeg) no-repeat center center fixed;
+    background: url(/Resources/back3.jpeg) fixed;
+    background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
-    height: 100%;
-    overflow: hidden;
+    overflow: auto;
+    margin-bottom:100px;
+   
 }
+
 
 #bitcoin {
     width: 10%;
@@ -25,6 +29,11 @@
 
 @media (max-width: 800px) {
 
+    #HomePage {
+        height: 100vh;
+        min-height:100%;
+        margin-bottom:250px;
+    }
     #btcdiv {
         font: bold 40px arial;
         color: orange;

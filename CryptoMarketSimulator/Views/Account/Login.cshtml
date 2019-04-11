@@ -3,8 +3,9 @@
     ViewBag.Title = "Login";
 }
 @model CryptoMarketSimulator.Models.LoginViewModel
-<script src="~/Scripts/jquery-3.2.1.min.js"></script>
 <link href="~/Content/Login.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-3.2.1.min.js"></script>
 
 <script>
 
@@ -12,15 +13,13 @@
 
     function validateForm() {
 
-        if ($("#Username").val() == "")
-        {
+        if ($("#Username").val() == "") {
             $("#emailerror").show();
-          
+
 
             return false;
         }
-        if ($("#passwordfield").val() == "")
-        {
+        if ($("#passwordfield").val() == "") {
             $("#passworderror").show();
             return false;
         }
@@ -40,15 +39,15 @@
                     <p class="form-title" style="text-align:center;">
                         SIGN IN
                         <br />
-                            @{
-                                if (ViewBag.InvalidLogin == true)
-                                {
-                                    <b style="color:red; font:24px bold arial">Invalid Login</b>
-                                }
+                        @{
+                            if (ViewBag.InvalidLogin == true)
+                            {
+                                <b style="color:red; font:24px bold arial">Invalid Login</b>
                             }
-                        
+                        }
+
                     </p>
-                 
+
                     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login", @onsubmit = "return validateForm()" }))
                     {
                         @Html.AntiForgeryToken()

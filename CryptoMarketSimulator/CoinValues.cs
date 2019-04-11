@@ -54,7 +54,7 @@ using System.Web;
             [41] = "ICON",
             [42] = "BitShares",
             [43] = "Holo",
-            [44] = "KuCoin Shares",
+            [44] = "Verge",
             [45] = "DigiByte",
             [46] = "Nano",
             [47] = "Steem",

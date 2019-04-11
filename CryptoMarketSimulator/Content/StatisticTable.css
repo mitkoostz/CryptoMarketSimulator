@@ -1,13 +1,42 @@
-﻿th {
-    font: bold 24px arial;
-    color: black;
+﻿
+
+@media (max-width: 800px) {
+
+   /*Mobile*/
+    th {
+        font: bold 15px arial;
+        color: black;
+    }
+
+    td {
+        font: bold 16px Courier New;
+        color: black;
+        text-align:left;
+    }
+
+    .percent {
+        font: bold 16px arial;
+    }
+
+
 }
-td {
-    font: bold 20px Courier New;
-    color: black;
-}
-.percent {
-    font: bold 20px arial;
+
+@media (min-width: 800px) {
+    /*Tablets/Computers*/
+    th {
+        font: bold 24px arial;
+        color: black;
+    }
+
+    td {
+        font: bold 20px Courier New;
+        color: black;
+    }
+
+    .percent {
+        font: bold 20px arial;
+    }
+  
 }
 
 #StatisticePage {

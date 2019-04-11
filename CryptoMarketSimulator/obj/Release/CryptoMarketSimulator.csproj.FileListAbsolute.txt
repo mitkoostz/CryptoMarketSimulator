@@ -243,3 +243,4 @@ C:\MitkoSoft\My Projects C#\CryptoMarketSimulator\CryptoMarketSimulator\obj\Rele
 C:\MitkoSoft\My Projects C#\CryptoMarketSimulator\CryptoMarketSimulator\obj\Release\CryptoMarketSimulator.dll
 C:\MitkoSoft\My Projects C#\CryptoMarketSimulator\CryptoMarketSimulator\obj\Release\CryptoMarketSimulator.pdb
 C:\MitkoSoft\My Projects C#\CryptoMarketSimulator\CryptoMarketSimulator\obj\Release\CryptoMarketSimulator.csprojAssemblyReference.cache
+C:\MitkoSoft\My Projects C#\CryptoMarketSimulator\CryptoMarketSimulator\bin\WebBackgrounder.dll

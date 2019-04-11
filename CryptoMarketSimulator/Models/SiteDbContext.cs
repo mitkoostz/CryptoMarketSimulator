@@ -29,8 +29,8 @@ namespace CryptoMarketSimulator.Models
         //TABLES
         public virtual DbSet<Wallet> Wallets { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
-        public virtual DbSet<CryptoStatistic> CryptoStatistics { get; set; }
-
+        public virtual DbSet<LimitOrder> LimitOrders { get; set; }
+        public virtual DbSet<CurrenciesChart> CurrenciesCharts { get; set; }
 
 
 
