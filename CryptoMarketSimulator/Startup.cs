@@ -23,7 +23,7 @@ namespace CryptoMarketSimulator
             //Uncomment when publishing
 
              OrderWorkerConfig.Start();
-             ChartsWorkerConfig.Start();
+             //ChartsWorkerConfig.Start();
 
             ConfigureAuth(app);
         }

@@ -6,3 +6,6 @@
 
 }
 
+.glyphicon.glyphicon-remove:hover {
+    color: red;
+}

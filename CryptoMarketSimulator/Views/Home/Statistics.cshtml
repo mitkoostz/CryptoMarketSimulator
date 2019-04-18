@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Statistics";
+}
+@model CryptoMarketSimulator.Models.Transport.Statistics
+<link href="~/Content/StatisticTable.css" rel="stylesheet" />
+
+<body id="StatisticePage">
+    <h1 id="currencyname">@Model.Currency.Name</h1>
+
+    <h2><b>@String.Format("{0:F2}", Model.Currency.Price)$</b></h2>
+
+    <h4><b>@String.Format("{0:F8}", Model.Currency.Price / Model.BitcoinPrice)BTC</b></h4>
+
+
+    @if (decimal.Parse(@Model.Currency.Change24.Replace("%", "")) >= 0)
+    {
+        <p style="color:green">+@Model.Currency.Change24 (24h)</p>
+    }
+    else
+    {
+        <p style="color:red">@Model.Currency.Change24 (24h)</p>
+
+    }<p>
+        <b>Site Volume: @String.Format("{0:F2}", Model.Volume) USD</b>
+    </p>
+
+
+    <canvas id="CurrencyChart" style="max-width:500px;" position:relative;"></canvas>
+
+
+    <b style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size:25px;">Open Orders</b>
+
+    <div style="height:140px; background-color:rgba(0,0,0,0.1); overflow:auto;">
+        @if (Model.Orders.Count == 0)
+        {
+            <p>No open Orders</p>
+        }
+        @foreach (var order in Model.Orders)
+        {
+            if (order.OrderType == "Sell")
+            {
+                <p style="color:red; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"><b>Sell</b> @order.Amount at @order.AtPrice BTC</p>
+
+            }
+            else
+            {
+                <p style="color:green; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"><b>Buy</b> @order.Amount at @order.AtPrice BTC</p>
+
+            }
+        }
+    </div>
+
+    <b style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size:25px;">Last trades</b>
+    <div style="height:140px; background-color:rgba(0,0,0,0.1); overflow:auto;">
+        @if (Model.Orders.Count == 0)
+        {
+            <p>0 trades</p>
+        }
+        @foreach (var order in Model.Transactions.Take(15))
+        {
+            if (order.Type == "Sell")
+            {
+                <p style="color:red; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"><b>Sold</b> @order.Amount at @order.CurrencyPrice USD</p>
+
+            }
+            else
+            {
+                <p style="color:green; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"><b>Bought</b> @order.Amount at @order.CurrencyPrice USD</p>
+
+            }
+        }
+    </div>
+
+</body><script src="~/Scripts/StatisticsCharts.js"></script>
+
+      <script src="~/Scripts/mdb.min.js"></script>

@@ -71,8 +71,10 @@
 
             </div>
 
+
+
         </div>
-        <div id="wallet" name="wallet" style="height:40%;" class="tab-pane fade">
+        <div id="wallet" name="wallet" style="height:400px;" p class="tab-pane fade">
 
             <table class="table table-sm">
                 <thead>
@@ -111,7 +113,7 @@
 
 
         </div>
-        <div id="lasttrades" name="lasttrades" style="height: 5%;overflow-y: scroll;" class="tab-pane fade">
+        <div id="lasttrades" name="lasttrades" style="height:400px;overflow-y: scroll;" class="tab-pane fade">
 
             <table class="table table-sm">
                 <thead>
@@ -147,7 +149,74 @@
         </div>
     </div>
 
+    <div class="row">
+        <h2 style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Open Orders</h2>
+        <table class="table table-borderless" style="background-color:rgba(0,0,0,0.2)">
+            <thead>
+                <tr style="color:black;">
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Currency</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                    <th></th>
 
+                </tr>
+            </thead>
+            @if (Model.User.LimitOrders.Count != 0)
+            {
+                <tbody id="OrdersBody" style="color:white;">
+
+                    @foreach (var order in Model.User.LimitOrders)
+                    {
+                        var orderkey = "\"" + order.Order + "\"";
+                        <tr id="@order.Id" class="OrdersRow">
+                            <td id="OrderDate">@order.OrderDate</td>
+                            <td id="OrderType">@order.OrderType</td>
+                            <td id="OrderCurrency">@order.Currency</td>
+                            <td id="OrderPrice">@order.AtPrice</td>
+                            <td id="OrderAmount">@order.Amount</td>
+                            <td id="OrderCancel"><span onclick="DeleteOrder(@orderkey,@order.Id);" class="glyphicon glyphicon-remove"></span></td>
+
+                        </tr>
+
+                    }
+
+
+                </tbody>
+            }
+            else
+            {
+                <tr>
+                    <td style="color:white;">No open orders</td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+
+    <script>
+        function DeleteOrder(order, id) {
+            var num = id;
+
+            $("#" + id).remove();
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Trade/DeleteOrder",
+                data: { order: order },
+                success: function (json) {
+
+                    var data = $.parseJSON(json);
+
+
+                }
+
+            });
+        }
+    </script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>

@@ -35,7 +35,7 @@ namespace BombaySapphireCds.Jobs
                     var Coins = CoinValues.GetValues();
                     var Orders = db.LimitOrders.OrderByDescending(order => order.OrderDate).ToList();
 
-                    foreach (var order in Orders)
+                    foreach (var order in Orders.ToList())
                     {
                         Coin coin = Coins.Where(c => c.Name.Contains(order.Currency)).First();
                         Coin Bitcoin = Coins.Where(c => c.Name.Contains("Bitcoin")).First();

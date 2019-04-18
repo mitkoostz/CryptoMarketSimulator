@@ -219,6 +219,7 @@
     <Compile Include="Models\Account\ManageViewModels.cs" />
     <Compile Include="Models\Transport\HomeAuthenticated.cs" />
     <Compile Include="Models\Transport\ProfileViewModel.cs" />
+    <Compile Include="Models\Transport\Statistics.cs" />
     <Compile Include="Models\Transport\TradePage.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\Transport\TopCurrency.cs" />
@@ -294,6 +295,7 @@
     <Content Include="Scripts\ProfileDiagram.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\StatisticsCharts.js" />
     <Content Include="Scripts\tether.js" />
     <Content Include="Scripts\Trade.js" />
     <Content Include="Scripts\TradeIndex.js" />
@@ -336,6 +338,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Home\Statistics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

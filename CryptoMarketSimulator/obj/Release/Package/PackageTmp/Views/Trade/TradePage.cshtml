@@ -19,8 +19,8 @@
 
     <div class="row">
 
-        <div class="col-md-3">
-            <h1 id="currencyname">@Model.Name</h1>
+        <div class="col-md-5">
+            <h1><b id="currencyname">@Model.Name</b> / BTC</h1>
         </div>
        
     </div>
@@ -108,12 +108,13 @@
                     <b>Price</b>
                     <input id="BuyAtPrice" placeholder="The price you will buy @Model.Name at" value="@string.Format("{0:F8}", Model.PriceBTC)" maxlength="20" name="" type="number" step="0.00000001" class="form-control">
                     <b>Amount</b>
-                    <input id="BuyAmount" placeholder="" maxlength="20" name="" type="number" step="0.0000001" class="form-control">
+                    <input id="BuyAmount" placeholder="" maxlength="20" name="" type="number" value="" step="0.0000001" class="form-control">
                     <b>Total</b>
                     <input id="Total" placeholder="" readonly maxlength="20" name="" type="number" step="0.0000001" class="form-control">
                     @*<b id="TotalUSD"></b>*@
+                    <b id="TotalUsd">0.00$</b>
                     <br />
-                    <label class="text-danger" id="buylimitlabel"></label>
+                    <label class="text-danger" style="font-size:15px;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" id="buylimitlabel"></label>
 
                     <button class="btn btn-success" id="buylimitbutton" style="width:78%;">Buy</button>
 
@@ -149,14 +150,15 @@
                 <br />
                 <div class="form-group">
                     <b>Price</b>
-                    <input id="SellAtPrice" placeholder="The price you will buy @Model.Name at" value="@string.Format("{0:F8}", Model.PriceBTC)" maxlength="20" name="" type="number" step="0.00000001" class="form-control">
+                    <input id="SellAtPrice"  placeholder="The price you will buy @Model.Name at" value="@string.Format("{0:F8}", Model.PriceBTC)" name="" type="number" step="0.00000001" class="form-control">
                     <b>Amount</b>
-                    <input id="SellAmount" placeholder="" maxlength="20" name="" type="number" step="0.0000001" class="form-control">
+                    <input id="SellAmount" placeholder=""  name="" type="number" step="0.0000001" class="form-control">
                     <b>Total</b>
                     <input id="Total2" placeholder="" readonly maxlength="20" name="" type="number" step="0.0000001" class="form-control">
                     @*<b id="TotalUSD"></b>*@
+                    <b id="TotalUsd2">0.00$</b>
                     <br />
-                    <label class="text-danger" id="selllimitlabel"></label>
+                    <label class="text-danger" style="font-size:15px;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" id="selllimitlabel"></label>
                     <button class="btn btn-danger" id="selllimitbutton" style="width:78%;">Sell</button>
 
                 </div>

@@ -1,11 +1,76 @@
 ﻿
+function ValidateLimitFieldSell() {
 
+    var sellatprice = $("#SellAtPrice").val();
+    var sellamount = $("#SellAmount").val();
+
+    if (sellamount === "") {
+        $("#selllimitlabel").attr("class", "text-danger");
+        $("#selllimitlabel").text("Please enter valid numbers.");
+
+        return;
+    }
+    if (sellatprice === "") {
+        $("#selllimitlabel").attr("class", "text-danger");
+        $("#selllimitlabel").text("Please enter valid numbers.");
+        return;
+    }
+    if (parseFloat(sellatprice) <= 0) {
+        $("#selllimitlabel").attr("class", "text-danger");
+        $("#selllimitlabel").text("Please enter valid numbers.");
+        return false;
+    }
+    if (parseFloat(sellamount) <= 0) {
+        $("#selllimitlabel").attr("class", "text-danger");
+        $("#selllimitlabel").text("Please enter valid numbers.");
+        return false;
+    }
+}
+
+function ValidateLimitFieldBuy() {
+    var buyatprice = $("#BuyAtPrice").val();
+    var buyamount = $("#BuyAmount").val();
+
+    if (buyamount === "") {
+        $("buylimitlabel").attr("class", "text-danger");
+        $("#buylimitlabel").text("Please enter valid numbers.");
+        return;
+    }
+    if (buyatprice === "") {
+        $("buylimitlabel").attr("class", "text-danger");
+        $("#buylimitlabel").text("Please enter valid numbers.");
+        return;
+    }
+    if (parseFloat(buyatprice) <= 0) {
+        $("buylimitlabel").attr("class", "text-danger");
+        $("#buylimitlabel").text("Please enter valid numbers.");
+        return false;
+    }
+    if (parseFloat(buyamount) <= 0) {
+        $("buylimitlabel").attr("class", "text-danger");
+        $("#buylimitlabel").text("Please enter valid numbers.");
+        return false;
+    }
+
+}
 function ValidateLimitBuy(currencybalance, btcbalance)
 {
     var buyatprice = $("#BuyAtPrice").val();
     var buyamount = $("#BuyAmount").val();
     var totalBtcCost = parseFloat(buyatprice) * parseFloat(buyamount);
 
+    if (buyamount === "") {
+        return;
+    }
+    if (buyatprice === "") {
+        return;
+    }
+    if (parseFloat(buyatprice) <= 0) {
+        return false;
+    }
+    if (parseFloat(buyamount) <= 0) {
+        return false;
+    }
     if (btcbalance < totalBtcCost)
     {
         return false;
@@ -19,6 +84,19 @@ function ValidateLimitSell(currencybalance, btcbalance) {
     var sellatprice = $("#SellAtPrice").val();
     var sellamount = $("#SellAmount").val();
     var totalBtcCost = parseFloat(sell) * parseFloat(sellamount);
+
+    if (sellamount === "") {
+        return;
+    }
+    if (sellatprice === "") {
+        return;
+    }
+    if (parseFloat(sellatprice) <= 0) {
+        return false;
+    }
+    if (parseFloat(sellamount) <= 0) {
+        return false;
+    }
 
     if (currencybalance < parseFloat(sellamount)) {
         return false;
@@ -46,11 +124,29 @@ function AddOrder(OrderDate, OrderType,OrderCurrency, OrderPrice, OrderAmount) {
 
 $('#BuyAmount').on('input', function (e) {
 
-        var buyatprice = $("#BuyAtPrice").val();
-        var buyamount = $("#BuyAmount").val();
+    var buyatprice = $("#BuyAtPrice").val();
+    var buyamount = $("#BuyAmount").val();
     var total = parseFloat(buyatprice) * parseFloat(buyamount);
-    $("#Total").val(total.toFixed(8));
+    var bitcoinPrice = parseFloat($("#bitcoinPrice").text());
+    var totalUsd = total * bitcoinPrice;
 
+    if (parseFloat(buyamount) <= 0)
+    {
+        $("#buylimitlabel").attr("class", "text-danger");
+        $("#buylimitlabel").text("Please enter valid amount.");
+        return;
+    }
+    if ($(this).val().length > 10) {
+
+        var value = $(this).val();
+        $(this).val(value.slice(0, -1));
+
+        return;
+    }
+
+
+    $("#TotalUsd").text(totalUsd.toFixed(3) + " $");
+    $("#Total").val(total.toFixed(8));
     $("#selllimitlabel").text("");
     $("#buylimitlabel").text("");
 
@@ -61,8 +157,26 @@ $('#BuyAtPrice').on('input', function (e) {
     var buyatprice = $("#BuyAtPrice").val();
     var buyamount = $("#BuyAmount").val();
     var total = parseFloat(buyatprice) * parseFloat(buyamount);
-    $("#Total").val(total.toFixed(8));
+    var bitcoinPrice = parseFloat($("#bitcoinPrice").text());
+    var totalUsd = total * bitcoinPrice;
 
+    if (parseFloat(buyatprice) <= 0) {
+        $("#buylimitlabel").attr("class", "text-danger");
+        $("#buylimitlabel").text("Please enter valid price.");
+        return;
+    }
+
+    if ($(this).val().length > 11) {
+
+        var value = $(this).val();
+        $(this).val(value.slice(0,-1));
+        
+        return;
+    }
+
+
+    $("#Total").val(total.toFixed(8));
+    $("#TotalUsd").text(totalUsd.toFixed(3) + " $");
     $("#selllimitlabel").text("");
     $("#buylimitlabel").text("");
 });
@@ -72,6 +186,25 @@ $('#SellAmount').on('input', function (e) {
     var buyatprice = $("#SellAtPrice").val();
     var buyamount = $("#SellAmount").val();
     var total = parseFloat(buyatprice) * parseFloat(buyamount);
+    var bitcoinPrice = parseFloat($("#bitcoinPrice").text());
+    var totalUsd = total * bitcoinPrice;
+
+    if (parseFloat(buyamount) <= 0) {
+        $("#selllimitlabel").attr("class", "text-danger");
+        $("#selllimitlabel").text("Please enter valid amount.");
+        return;
+    }
+
+    if ($(this).val().length > 10) {
+
+        var value = $(this).val();
+        $(this).val(value.slice(0, -1));
+
+        return;
+    }
+
+    $("#TotalUsd2").text(totalUsd.toFixed(3) + " $");
+
     $("#Total2").val(total.toFixed(8));
 
     $("#selllimitlabel").text("");
@@ -84,6 +217,25 @@ $('#SellAtPrice').on('input', function (e) {
     var buyatprice = $("#SellAtPrice").val();
     var buyamount = $("#SellAmount").val();
     var total = parseFloat(buyatprice) * parseFloat(buyamount);
+    var bitcoinPrice = parseFloat($("#bitcoinPrice").text());
+    var totalUsd = total * bitcoinPrice;
+
+    if (parseFloat(buyatprice) <= 0) {
+        $("#selllimitlabel").attr("class", "text-danger");
+        $("#selllimitlabel").text("Please enter valid price.");
+        return;
+    }
+
+    if ($(this).val().length > 10) {
+
+        var value = $(this).val();
+        $(this).val(value.slice(0, -1));
+
+        return;
+    }
+
+    $("#TotalUsd2").text(totalUsd.toFixed(3) + " $");
+
     $("#Total2").val(total.toFixed(8));
 
     $("#selllimitlabel").text("");
@@ -194,6 +346,7 @@ $("#buylimitbutton").click(function () {
                 //console.log("no balance");
                 $("#buylimitlabel").attr("class", "text-danger");
                 $("#buylimitlabel").text("Balance is not enough.");
+                ValidateLimitFieldBuy();
 
             }
 
@@ -250,6 +403,7 @@ $("#selllimitbutton").click(function () {
                 //console.log("no balance");
                 $("#selllimitlabel").attr("class", "text-danger");
                 $("#selllimitlabel").text("Balance is not enough.");
+                ValidateLimitFieldSell();
 
             }
 

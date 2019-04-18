@@ -145,6 +145,11 @@ namespace CryptoMarketSimulator.Controllers
             decimal BuyAmount = decimal.Parse(buyamount);
             decimal BuyAtPrice = decimal.Parse(buyatprice);
 
+            if(BuyAmount == 0 || BuyAtPrice == 0 || BuyAtPrice < 0 || BuyAmount < 0)
+            {
+                return View("Index");
+            }
+
             var TotalOrderBtcCost = BuyAmount * BuyAtPrice;
 
             var Coins = CoinValues.GetValues().ToList();

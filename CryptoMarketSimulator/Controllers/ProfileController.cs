@@ -17,12 +17,17 @@ namespace CryptoMarketSimulator.Controllers
         public static decimal  CalculateTotalBalance(ApplicationUser User)
         {
             List<Coin> Coins = CoinValues.GetValues();
+            List<LimitOrder> UserOrders = User.LimitOrders.ToList();
 
             Dictionary<int,string> CurrencyNames = CoinValues.GetCurrencyName();    
             decimal TotalBalanceUSD = 0.00m;
 
+            
             var Bitcoin = Coins.Where(c => c.Name.Contains("Bitcoin")).First().Price;
              TotalBalanceUSD += Bitcoin * User.Balance;
+
+            TotalBalanceUSD += UserOrders.Sum(ord => (ord.AtPrice * Bitcoin) * ord.Amount);
+
 
             var Ethereum = Coins.Where(c => c.Name.Contains(CurrencyNames[2])).First().Price;
             TotalBalanceUSD += Ethereum * User.Wallet.Ethereum;
@@ -123,6 +128,8 @@ namespace CryptoMarketSimulator.Controllers
             var Aeternity = Coins.Where(c => c.Name.Contains(CurrencyNames[50])).First().Price;
             TotalBalanceUSD += Aeternity * User.Wallet.Aeternity;
 
+
+
             return TotalBalanceUSD;
 
 
@@ -138,6 +145,7 @@ namespace CryptoMarketSimulator.Controllers
             {
                 var user = db.Users.Find(User.Identity.GetUserId());
                 user.Wallet = user.Wallet;
+                user.LimitOrders = user.LimitOrders;
                 user.Transactions = user.Transactions.OrderByDescending(t => t.Date).ToList();
 
             
@@ -145,6 +153,7 @@ namespace CryptoMarketSimulator.Controllers
                 ProfileViewModel ViewModel = new ProfileViewModel();
 
                 ViewModel.User = user;
+                ViewModel.User.LimitOrders = user.LimitOrders;
                 ViewModel.TotalBalanceUSD = CalculateTotalBalance(user);
                 
 

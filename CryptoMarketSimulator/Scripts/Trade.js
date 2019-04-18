@@ -33,12 +33,27 @@ function UpdateSellField() {
 
 $('#buyfield').on('input', function (e) {
 
+    if ($(this).val().length > 8) {
+
+        var value = $(this).val();
+        $(this).val(value.slice(0, -1));
+
+        return;
+    }
+
     UpdateBuyField();
 
 });
 
 $('#sellfield').on('input', function (e) {
 
+    if ($(this).val().length > 8) {
+
+        var value = $(this).val();
+        $(this).val(value.slice(0, -1));
+
+        return;
+    }
     UpdateSellField();
 
 });
@@ -69,6 +84,7 @@ function RefreshCurrency() {
             $("#userusd").text(data.UserUsdBalance.toFixed(2) + "$");
             $("#CurrencyBalance").text(data.UserCurrencyBalance.toFixed(8));
 
+            $("#currencyname").text(currencyname);
             // UpdateOrderTable(data.UserOrders);
             GetUserOrders();
 
