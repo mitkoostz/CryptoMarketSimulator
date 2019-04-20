@@ -10,4 +10,4 @@ using System.Web;
         public decimal Price { get; set; }
         public string Change24 { get; set; }
         public string CoinImage { get; set; }
-}
+    }

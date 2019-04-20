@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -45,7 +46,8 @@ namespace CryptoMarketSimulator.Controllers
 
                 tradeData.Name = CurrencyName;
                 tradeData.Price = CoinValues.GetValues().Where(c => c.Name == CurrencyName).First().Price;
-                tradeData.PriceBTC =  tradeData.Price / CoinValues.GetBtcValue().Price ;
+                tradeData.PriceBTC = (tradeData.Price / CoinValues.GetBtcValue().Price);
+                tradeData.PriceBtcString = string.Format("{0:F8}", tradeData.PriceBTC).Replace(",",".") ;
                 tradeData.ImageNumber = CoinValues.GetCurrencyName().Where(c => c.Value == currency).First().Key;
                 tradeData.AllCoins = CoinValues.GetCurrencyName();
             
@@ -77,7 +79,7 @@ namespace CryptoMarketSimulator.Controllers
             }
 
             var userId = User.Identity.GetUserId();
-            decimal bought = decimal.Parse(amount);
+            decimal bought = decimal.Parse(amount, CultureInfo.InvariantCulture);
             decimal currencyPrice = CoinValues.GetValues().Where(v => v.Name == name).First().Price;
             decimal bitcoin = CoinValues.GetBtcValue().Price;
 
@@ -142,8 +144,8 @@ namespace CryptoMarketSimulator.Controllers
             var db = new SiteDbContext();
             var user = db.Users.Find(userId);
 
-            decimal BuyAmount = decimal.Parse(buyamount);
-            decimal BuyAtPrice = decimal.Parse(buyatprice);
+            decimal BuyAmount = decimal.Parse(buyamount, CultureInfo.InvariantCulture);
+            decimal BuyAtPrice = decimal.Parse(buyatprice, CultureInfo.InvariantCulture);
 
             if(BuyAmount == 0 || BuyAtPrice == 0 || BuyAtPrice < 0 || BuyAmount < 0)
             {
@@ -197,8 +199,8 @@ namespace CryptoMarketSimulator.Controllers
             var db = new SiteDbContext();
             var user = db.Users.Find(userId);
 
-            decimal SellAmount = decimal.Parse(sellamount);
-            decimal BuyAtPrice = decimal.Parse(sellatprice);
+            decimal SellAmount = decimal.Parse(sellamount, CultureInfo.InvariantCulture);
+            decimal BuyAtPrice = decimal.Parse(sellatprice, CultureInfo.InvariantCulture);
 
             var TotalOrderBtcCost = SellAmount * BuyAtPrice;
             
@@ -249,7 +251,7 @@ namespace CryptoMarketSimulator.Controllers
             }
 
             var userId = User.Identity.GetUserId();
-            decimal sold = decimal.Parse(amount);
+            decimal sold = decimal.Parse(amount, CultureInfo.InvariantCulture);
             decimal currencyPrice = CoinValues.GetValues().Where(v => v.Name == name).First().Price;
             decimal bitcoin = CoinValues.GetBtcValue().Price;
 

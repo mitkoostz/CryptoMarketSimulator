@@ -28,7 +28,7 @@
             @{
                 var color = "white";
                 var PlusOrMinus = "+";
-                if (decimal.Parse(Model.Bitcoin.Change24.Replace("%", string.Empty)) < 0)
+                if (decimal.Parse(Model.Bitcoin.Change24.Replace("%", string.Empty), System.Globalization.CultureInfo.InvariantCulture) < 0)
                 {
                     color = "red";
                     PlusOrMinus = "";
@@ -71,7 +71,7 @@
                 @{
                     var color = "white";
                     var PlusOrMinus = "+";
-                    if (decimal.Parse(Model.Bitcoin.Change24.Replace("%", string.Empty)) < 0)
+                    if (decimal.Parse(Model.Bitcoin.Change24.Replace("%", string.Empty), System.Globalization.CultureInfo.InvariantCulture) < 0)
                     {
                         color = "red";
                         PlusOrMinus = "";

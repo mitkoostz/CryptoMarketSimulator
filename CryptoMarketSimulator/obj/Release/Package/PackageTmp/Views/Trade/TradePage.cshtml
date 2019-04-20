@@ -106,7 +106,7 @@
                 <br />
                 <div class="form-group">
                     <b>Price</b>
-                    <input id="BuyAtPrice" placeholder="The price you will buy @Model.Name at" value="@string.Format("{0:F8}", Model.PriceBTC)" maxlength="20" name="" type="number" step="0.00000001" class="form-control">
+                    <input id="BuyAtPrice" placeholder="The price you will buy @Model.Name at" value="@Model.PriceBtcString" maxlength="20" name="" type="number" step="0.00000001" class="form-control">
                     <b>Amount</b>
                     <input id="BuyAmount" placeholder="" maxlength="20" name="" type="number" value="" step="0.0000001" class="form-control">
                     <b>Total</b>
@@ -150,7 +150,7 @@
                 <br />
                 <div class="form-group">
                     <b>Price</b>
-                    <input id="SellAtPrice"  placeholder="The price you will buy @Model.Name at" value="@string.Format("{0:F8}", Model.PriceBTC)" name="" type="number" step="0.00000001" class="form-control">
+                    <input id="SellAtPrice"  placeholder="The price you will buy @Model.Name at" value="@Model.PriceBtcString" name="" type="number" step="0.00000001" class="form-control">
                     <b>Amount</b>
                     <input id="SellAmount" placeholder=""  name="" type="number" step="0.0000001" class="form-control">
                     <b>Total</b>
@@ -211,8 +211,7 @@
 
                 </tr>
             </thead>
-            @if (Model.User.LimitOrders.Count != 0)
-            {
+           
                 <tbody id="OrdersBody" style="color:white;">
 
                     @foreach (var order in Model.User.LimitOrders)
@@ -232,15 +231,10 @@
 
 
                 </tbody>
-            }
-            else
-            {
-               <tr>
-                   <td style="color:white;">No open orders</td>
-               </tr>
-            }
+            
+         
 
-        </table>
+            </table>
 
     </div>
     <div class="row">

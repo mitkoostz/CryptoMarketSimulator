@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -117,7 +118,7 @@ using System.Web;
 
                 var crypto = new Coin();
                 crypto.Name = findname[i].InnerText;
-                crypto.Price = decimal.Parse(findprice[i].InnerText.Replace("$", ""));
+                crypto.Price = decimal.Parse(findprice[i].InnerText.Replace("$", ""), CultureInfo.InvariantCulture);
 
             //if (!findImage[i].Attributes["src"].Value.Contains(@"https://s2"))
             //{
@@ -184,7 +185,9 @@ using System.Web;
 
             var crypto = new Coin();
             crypto.Name = findname[i].InnerText;
-            crypto.Price = decimal.Parse(findprice[i].InnerText.Replace("$", ""));
+            var pricereplaced = findprice[i].InnerText.Replace("$", "").Replace(",", "");
+            decimal price = decimal.Parse(pricereplaced, CultureInfo.InvariantCulture);
+            crypto.Price = price;
             crypto.Change24 = findchange24[i].InnerText;
             coins.Add(crypto);
 
@@ -232,7 +235,7 @@ using System.Web;
 
             var crypto = new Coin();
             crypto.Name = findname[i].InnerText;
-            crypto.Price = decimal.Parse(findprice[i].InnerText.Replace("$", ""));
+            crypto.Price = decimal.Parse(findprice[i].InnerText.Replace("$", ""), CultureInfo.InvariantCulture);
             coins.Add(crypto);
 
         }

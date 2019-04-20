@@ -13,7 +13,7 @@
     <h4><b>@String.Format("{0:F8}", Model.Currency.Price / Model.BitcoinPrice)BTC</b></h4>
 
 
-    @if (decimal.Parse(@Model.Currency.Change24.Replace("%", "")) >= 0)
+    @if (decimal.Parse(@Model.Currency.Change24.Replace("%", ""), System.Globalization.CultureInfo.InvariantCulture) >= 0)
     {
         <p style="color:green">+@Model.Currency.Change24 (24h)</p>
     }
