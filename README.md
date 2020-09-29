@@ -5,6 +5,7 @@ other cryptocurrencies. User can also trade them back to bitcoin . You buy other
 changing every second as a cryptocurrenices values always change. You can also place BUY or SELL order at price. Web Server workers will buy or sell when the real-time value
 is as your bid.
 Technologies: C# ASP.NET EF MSSQL /  JS JQUERY AJAX RQUESTS HTML5 CSS BOOTSTRAP
+
 Login / Register PAGE
 ![alt text](https://raw.githubusercontent.com/mitkoostz/CryptoMarketSimulator/master/CryptoTradeSimulator/SIGNIN.PNG)
 
