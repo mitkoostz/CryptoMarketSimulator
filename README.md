@@ -6,13 +6,13 @@ changing every second as a cryptocurrenices values always change. You can also p
 is as your bid.
 
 Login / Register PAGE
-https://raw.githubusercontent.com/mitkoostz/CryptoMarketSimulator/master/CryptoTradeSimulator/SIGNIN.PNG
+![alt text](https://raw.githubusercontent.com/mitkoostz/CryptoMarketSimulator/master/CryptoTradeSimulator/SIGNIN.PNG)
 
 Account PAGE
-https://raw.githubusercontent.com/mitkoostz/CryptoMarketSimulator/master/CryptoTradeSimulator/Account.PNG
+![alt text](https://raw.githubusercontent.com/mitkoostz/CryptoMarketSimulator/master/CryptoTradeSimulator/Account.PNG)
 
 Trade PAGE
-https://raw.githubusercontent.com/mitkoostz/CryptoMarketSimulator/master/CryptoTradeSimulator/Trade.PNG
+![alt text](https://raw.githubusercontent.com/mitkoostz/CryptoMarketSimulator/master/CryptoTradeSimulator/Trade.PNG)
 
 Trade History 
-https://raw.githubusercontent.com/mitkoostz/CryptoMarketSimulator/master/CryptoTradeSimulator/TradeHistory.PNG
+![alt text](https://raw.githubusercontent.com/mitkoostz/CryptoMarketSimulator/master/CryptoTradeSimulator/TradeHistory.PNG)
